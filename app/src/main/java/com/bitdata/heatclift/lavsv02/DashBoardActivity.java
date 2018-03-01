@@ -40,7 +40,7 @@ public class DashBoardActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         ///inflate the first fragment for the first time
 
-        frag = new frag1();
+        frag = new clidash();
         trans = getSupportFragmentManager().beginTransaction();
         trans.replace(R.id.content,frag);
         trans.commit();
@@ -85,7 +85,7 @@ public class DashBoardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            frag = new frag1();
+            frag = new clidash();
             trans = getSupportFragmentManager().beginTransaction();
             trans.replace(R.id.content,frag);
             trans.commit();
