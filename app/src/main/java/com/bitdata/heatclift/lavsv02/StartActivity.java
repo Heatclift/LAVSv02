@@ -22,6 +22,9 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.login);
         DatabaseHelper helper = new DatabaseHelper(this);
         SQLiteDatabase db= helper.getWritableDatabase();
+
+
+
         Button btnlogin=(Button)findViewById(R.id.btnlogin);
         final TextView copywrite = (TextView)findViewById(R.id.txtcopywrite);
         final RelativeLayout rl = (RelativeLayout)findViewById(R.id.rlcontrols);
