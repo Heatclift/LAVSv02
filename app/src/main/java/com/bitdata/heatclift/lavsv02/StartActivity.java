@@ -58,11 +58,12 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        Cursor cur = helper.retrieve(db);
+        /*Cursor cur = helper.retrieve(db);
         while(cur.moveToNext())
         {
             Log.i("Sample Data",cur.getString(1));
         }
         cur.close();
+        */
     }
 }

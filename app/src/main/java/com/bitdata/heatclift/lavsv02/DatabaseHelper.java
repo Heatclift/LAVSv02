@@ -6,9 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Heatclift on 28/02/2018.
  */
@@ -18,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public static final String dbname="test.db";
     public static final int version=1;
 //TBL LOANS
-    public static final String tbl_LOANS = "table1";
+    public static final String tbl_LOANS = "loans";
     public static final String tbl_LOANS_COL1 = "ID";
     public static final String tbl_LOANS_COL2= "CLIID";
     public static final String tbl_LOANS_COL3= "LOAN_AM";
@@ -33,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     //END OF TBL LOANS
 
     //tbl client
-    public static final String tbl_CLIENTS = "table1";
+    public static final String tbl_CLIENTS = "client";
     public static final String tbl_CLIENTS_ID = "ID";
     public static final String tbl_CLIENTS_USERNAME = "USERNAME";
     public static final String tbl_CLIENTS_PASSWOD= "PASWORD";
@@ -45,6 +42,16 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     //end tbl client
 
+    //tbl soa
+
+    public  static final  String tbl_soa = "soa";
+    public static final String tbl_soa_id = "ID";
+    public static final String tbl_soa_date = "DATE";
+    public  static final String tbl_soa_loan ="LOAN";
+    public static final  String tbl_soa_state = "STATE";
+
+    //end soa
+
     public DatabaseHelper(Context context) {
         super(context, dbname, null, version);
     }
@@ -55,12 +62,22 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 tbl_LOANS_COL2+" String,"+tbl_LOANS_COL3+" String,"+tbl_LOANS_COL4+" String,"+tbl_LOANS_COL5+" String,"+tbl_LOANS_COL6+" String,"+tbl_LOANS_COL7+" String,"+tbl_LOANS_COL8+" String,"+tbl_LOANS_COL9+" String,"+tbl_LOANS_COL10+" String"+")");
         db.execSQL("CREATE TABLE "+tbl_CLIENTS+" ("+tbl_CLIENTS_ID+" integer primary key autoincrement,"+
                 tbl_CLIENTS_USERNAME+" String,"+tbl_CLIENTS_PASSWOD+" String,"+tbl_CLIENTS_FULLNAME+" String,"+tbl_CLIENTS_BIRTHDATE+" String,"+tbl_CLIENTS_CONNO+" String,"+tbl_CLIENTS_EMAIL+" String,"+tbl_CLIENTS_ADDRESS+" String"+")");
+        db.execSQL("CREATE TABLE "+tbl_soa+" ("+tbl_soa_id+" integer primary key autoincrement,"+
+                tbl_CLIENTS_USERNAME+" String,"+tbl_soa_date+" String,"+tbl_soa_loan+" String,"+tbl_soa_state+" String"+")");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+tbl_LOANS);
+        db.execSQL("DROP TABLE IF EXISTS "+tbl_CLIENTS);
+        db.execSQL("DROP TABLE IF EXISTS "+tbl_soa);
         onCreate(db);
+    }
+
+    public String log_in(String username,String password, SQLiteDatabase db){
+        Cursor cur = db.rawQuery("Select "+tbl_CLIENTS_ID+" from "+ tbl_CLIENTS+" where "+tbl_CLIENTS_USERNAME + " = "+username + " and "+tbl_CLIENTS_PASSWOD + " = "+password,null);
+
+        return cur.getString(0);
     }
 
     public void insertDataInloan(String cliid,String loan_am,String term,String curbal,String interest,String appl_date,String state,String due_date,String days,SQLiteDatabase db)
@@ -75,6 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         val.put(tbl_LOANS_COL8,state);
         val.put(tbl_LOANS_COL9,due_date);
         val.put(tbl_LOANS_COL10,days);
+
         db.insert(tbl_LOANS,null,val);
     }
     public void insertDataInclients(String cliid,String loan_am,String term,String curbal,String interest,String appl_date,String state,String due_date,String days,SQLiteDatabase db)
@@ -107,5 +125,17 @@ public class DatabaseHelper extends SQLiteOpenHelper
     {
         Cursor cur = db.rawQuery("select * from "+tbl_LOANS,null);
         return cur;
+    }
+
+    public Cursor getcurloan(SQLiteDatabase db){
+        Cursor cur = db.rawQuery("select "+tbl_LOANS_COL5+", " + tbl_LOANS_COL6 + ", "+ tbl_LOANS_COL4 + "from "+ tbl_LOANS,null);
+        return cur;
+    }
+
+    /**
+     * Created by Heatclift on 01/03/2018.
+     */
+
+    public static class noloan {
     }
 }
