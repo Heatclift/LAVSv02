@@ -49,12 +49,14 @@ public class DashBoardActivity extends AppCompatActivity
         if (id == null){
             frag = new no_loan();
             trans = getSupportFragmentManager().beginTransaction();
+            trans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
             trans.replace(R.id.content,frag);
             trans.commit();
         }
         else{
             frag = new clidash();
             trans = getSupportFragmentManager().beginTransaction();
+            trans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
             trans.replace(R.id.content,frag);
             trans.commit();
         }
@@ -103,6 +105,7 @@ public class DashBoardActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
             frag = new frag2();
             trans = getSupportFragmentManager().beginTransaction();
+            trans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
             trans.replace(R.id.content,frag);
             trans.commit();
         } else if (id == R.id.nav_manage) {

@@ -72,6 +72,7 @@ public class apploan extends Fragment{
                 frag = new loanpending();
                 FragmentManager frogman = getFragmentManager();
                 trans = frogman.beginTransaction();
+                trans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
                 trans.replace(R.id.content,frag);
                 trans.commit();
                 dialog.dismiss();
