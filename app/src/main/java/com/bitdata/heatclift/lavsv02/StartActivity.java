@@ -20,10 +20,11 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        DatabaseHelper helper = new DatabaseHelper(this);
-        SQLiteDatabase db= helper.getWritableDatabase();
-
-
+        final DatabaseHelper helper = new DatabaseHelper(this);
+        final SQLiteDatabase db= helper.getWritableDatabase();
+        final TextView txtuser = (TextView)findViewById(R.id.edruser);
+        final TextView txtpass =(TextView)findViewById(R.id.edtpass);
+        store_class.uid = "1";
 
         Button btnlogin=(Button)findViewById(R.id.btnlogin);
         final TextView copywrite = (TextView)findViewById(R.id.txtcopywrite);
@@ -32,6 +33,8 @@ public class StartActivity extends AppCompatActivity {
 
         final Animation slideside = AnimationUtils.loadAnimation(this,R.anim.slideinside);
         rl.startAnimation(slide);
+       helper.insertDataInclients("user","12345","Herbert Calmerin","08-24-1999","09099421122","hcalmerin@gmail.com",db);
+
         slide.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -54,8 +57,15 @@ public class StartActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(StartActivity.this, DashBoardActivity.class);
-                startActivity(i);
+                store_class.uid = helper.log_in(txtuser.getText().toString(),txtpass.getText().toString(),db);
+                if (store_class.uid != null){
+                    Intent i = new Intent(StartActivity.this, DashBoardActivity.class);
+                    startActivity(i);
+                }
+                else {
+
+                }
+
             }
         });
         /*Cursor cur = helper.retrieve(db);

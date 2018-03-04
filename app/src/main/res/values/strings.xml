@@ -13,4 +13,5 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string name="title_activity_admin">admin</string>
 </resources>

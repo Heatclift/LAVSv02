@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.Editable;
 
 /**
  * Created by Heatclift on 28/02/2018.
@@ -74,10 +75,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
         onCreate(db);
     }
 
-    public String log_in(String username,String password, SQLiteDatabase db){
-        Cursor cur = db.rawQuery("Select "+tbl_CLIENTS_ID+" from "+ tbl_CLIENTS+" where "+tbl_CLIENTS_USERNAME + " = "+username + " and "+tbl_CLIENTS_PASSWOD + " = "+password,null);
+    public String log_in(String username,String password, SQLiteDatabase db){/////working with it
+        //Cursor cur = db.rawQuery("Select * from "+ tbl_CLIENTS + " WHERE " + tbl_CLIENTS_USERNAME + "="+username+" AND " + tbl_CLIENTS_PASSWOD + "="+password+"", null);
 
-        return cur.getString(0);
+        return "1"/*cur.getString(0)*/;
     }
 
     public void insertDataInloan(String cliid,String loan_am,String term,String curbal,String interest,String appl_date,String state,String due_date,String days,SQLiteDatabase db)
@@ -95,16 +96,16 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         db.insert(tbl_LOANS,null,val);
     }
-    public void insertDataInclients(String cliid,String loan_am,String term,String curbal,String interest,String appl_date,String state,String due_date,String days,SQLiteDatabase db)
+    public void insertDataInclients(String user,String pass,String fullname,String bdate,String conno,String email,SQLiteDatabase db)
     {
         ContentValues val = new ContentValues();
-        val.put(tbl_CLIENTS_USERNAME,cliid);
-        val.put(tbl_CLIENTS_PASSWOD,loan_am);
-        val.put(tbl_CLIENTS_FULLNAME,term);
-        val.put(tbl_CLIENTS_BIRTHDATE,curbal);
-        val.put(tbl_CLIENTS_CONNO,interest);
-        val.put(tbl_CLIENTS_EMAIL,appl_date);
-        val.put(tbl_CLIENTS_ADDRESS,state);
+        val.put(tbl_CLIENTS_USERNAME,user);
+        val.put(tbl_CLIENTS_PASSWOD,pass);
+        val.put(tbl_CLIENTS_FULLNAME,fullname);
+        val.put(tbl_CLIENTS_BIRTHDATE,bdate);
+        val.put(tbl_CLIENTS_CONNO,conno);
+        val.put(tbl_CLIENTS_EMAIL,email);
+        val.put(tbl_CLIENTS_ADDRESS,"unveri");
 
         db.insert(tbl_LOANS,null,val);
     }
@@ -115,11 +116,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
         val.put(tbl_LOANS_COL2,data);
         db.update(tbl_LOANS,val,tbl_LOANS_COL1+"=?",new String[]{key});
     }
-    public void updatestate(String key,String data,SQLiteDatabase db)
+    public void updatestate(String id,String data,SQLiteDatabase db)
     {
         ContentValues val = new ContentValues();
         val.put(tbl_LOANS_COL8,data);
-        db.update(tbl_LOANS,val,tbl_LOANS_COL1+"=?",new String[]{key});
+        db.update(tbl_LOANS,val,tbl_LOANS_COL1+"=?",new String[]{id});
     }
     public Cursor retrieve(SQLiteDatabase db)
     {
@@ -130,6 +131,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public Cursor getcurloan(SQLiteDatabase db){
         Cursor cur = db.rawQuery("select "+tbl_LOANS_COL5+", " + tbl_LOANS_COL6 + ", "+ tbl_LOANS_COL4 + "from "+ tbl_LOANS,null);
         return cur;
+    }
+
+    public void insertDataInloan(String uid, Editable text, String s, Editable text1, String s1) {
     }
 
     /**

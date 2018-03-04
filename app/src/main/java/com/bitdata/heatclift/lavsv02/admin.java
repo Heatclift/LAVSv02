@@ -1,9 +1,9 @@
 package com.bitdata.heatclift.lavsv02;
 
-
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,17 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class DashBoardActivity extends AppCompatActivity
+public class admin extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    String id =null;
-    DatabaseHelper db = new DatabaseHelper(this);
-    FragmentTransaction trans;
-    Fragment frag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dash_board);
+        setContentView(R.layout.activity_admin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -36,32 +32,10 @@ public class DashBoardActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-
-
-        ///inflate the first fragment for the first time
-        homeload();
-
     }
 
-     public void homeload(){
-        if (id == null){
-            frag = new no_loan();
-            trans = getSupportFragmentManager().beginTransaction();
-            trans.replace(R.id.content,frag);
-            trans.commit();
-        }
-        else{
-            frag = new clidash();
-            trans = getSupportFragmentManager().beginTransaction();
-            trans.replace(R.id.content,frag);
-            trans.commit();
-        }
-    }
     @Override
     public void onBackPressed() {
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -73,7 +47,7 @@ public class DashBoardActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.dash_board, menu);
+        getMenuInflater().inflate(R.menu.admin, menu);
         return true;
     }
 
@@ -99,21 +73,17 @@ public class DashBoardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            homeload();
+            // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            frag = new frag2();
-            trans = getSupportFragmentManager().beginTransaction();
-            trans.replace(R.id.content,frag);
-            trans.commit();
+
+        } else if (id == R.id.nav_slideshow) {
+
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-            frag = new contact_us_fragment();
-            trans = getSupportFragmentManager().beginTransaction();
-            trans.replace(R.id.content,frag);
-            trans.commit();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
