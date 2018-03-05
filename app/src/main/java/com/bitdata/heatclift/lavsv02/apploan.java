@@ -52,23 +52,24 @@ public class apploan extends Fragment{
         final DatabaseHelper db = new DatabaseHelper(getActivity());
         final SQLiteDatabase rdb = db.getReadableDatabase();
         final AlertDialog.Builder die = new AlertDialog.Builder(getActivity());
-        final String[] loan_amm = {""};
+        final String[] loan_amm = new String[1];
         final String[] term = {"1"};
         Date c = Calendar.getInstance().getTime();
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-mm-yyyy");
-        String date = df.format(c);
-        final String datenaow = date;
+        SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        final String date = df.format(c);
+        final String[] datenaow = {date};
         final String duedate =String.valueOf(date.indexOf(2,2)+ Integer.valueOf(term[0]));
         final String numdays =String.valueOf((Integer.valueOf(term[0]))*31);
         die.setMessage("Are you sure?");
+        final Formulas formu = new Formulas();
         die.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getActivity(), datenaow[0], Toast.LENGTH_SHORT).show();
 
-
-                db.insertDataInloan(store_class.uid, loan_amm[0], term[0], loan_amm[0],"5",datenaow,"pending",duedate,numdays,rdb);///unfinished
+                db.insertDataInloan(store_class.uid, loan_amm[0], term[0], String.valueOf(formu.gross(Double.valueOf(loan_amm[0]),Integer.valueOf(term[0]),5)),"5", datenaow[0],"pending",duedate,numdays,rdb);///unfinished
                 frag = new loanpending();
                 FragmentManager frogman = getFragmentManager();
                 trans = frogman.beginTransaction();
@@ -91,6 +92,7 @@ public class apploan extends Fragment{
             public void onClick(View v) {
                 loan_amm[0] = rdt.getText().toString();
                 term[0] = spnterm.getSelectedItem().toString();
+                datenaow[0] =date;
                 die.show();
             }
         });

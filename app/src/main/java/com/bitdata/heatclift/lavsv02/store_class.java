@@ -5,6 +5,7 @@ package com.bitdata.heatclift.lavsv02;
  */
 
 public class store_class {
-    static  String uid = null;
-    static  String utype = null;
+    static  String uid = "";
+    static  String utype = "";
+    static  String lid ="";
 }

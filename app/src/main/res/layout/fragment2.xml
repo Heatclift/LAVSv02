@@ -10,7 +10,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
-        android:text="Parment Schedule"
+        android:text="Payment Schedule"
         android:textSize="20dp"
         android:textStyle="bold" />
 

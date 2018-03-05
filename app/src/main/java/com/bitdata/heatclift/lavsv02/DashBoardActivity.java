@@ -1,6 +1,7 @@
 package com.bitdata.heatclift.lavsv02;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,7 +16,7 @@ import android.view.MenuItem;
 
 public class DashBoardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    String id =null;
+
     DatabaseHelper db = new DatabaseHelper(this);
     FragmentTransaction trans;
     Fragment frag;
@@ -46,7 +47,7 @@ public class DashBoardActivity extends AppCompatActivity
     }
 
      public void homeload(){
-        if (id == null){
+        if (store_class.lid == ""){
             frag = new no_loan();
             trans = getSupportFragmentManager().beginTransaction();
             trans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
@@ -88,7 +89,12 @@ public class DashBoardActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            store_class.uid="";
+            store_class.lid="";
+            store_class.utype="";
+            Intent i = new Intent(DashBoardActivity.this, StartActivity.class);
+            startActivity(i);
+
         }
 
         return super.onOptionsItemSelected(item);

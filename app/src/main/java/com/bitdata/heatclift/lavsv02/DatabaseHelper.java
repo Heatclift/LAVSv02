@@ -24,8 +24,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public static final String tbl_LOANS_COL5= "CURBAL";
     public static final String tbl_LOANS_COL6= "INTEREST";
     public static final String tbl_LOANS_COL7= "APPL_DATE";
-    public static final String tbl_LOANS_COL8= "STATE";
-    public static final String tbl_LOANS_COL9= "DUE_DATE";
+    public static final String tbl_LOANS_STATE = "STATE";
+    public static final String tbl_LOANS_DUEDATE = "DUE_DATE";
     public static final String tbl_LOANS_COL10= "DAYS";
 
     //END OF TBL LOANS
@@ -60,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE "+tbl_LOANS+" ("+tbl_LOANS_COL1+" integer primary key autoincrement,"+
-                tbl_LOANS_COL2+" String,"+tbl_LOANS_COL3+" String,"+tbl_LOANS_COL4+" String,"+tbl_LOANS_COL5+" String,"+tbl_LOANS_COL6+" String,"+tbl_LOANS_COL7+" String,"+tbl_LOANS_COL8+" String,"+tbl_LOANS_COL9+" String,"+tbl_LOANS_COL10+" String"+")");
+                tbl_LOANS_COL2+" String,"+tbl_LOANS_COL3+" String,"+tbl_LOANS_COL4+" String,"+tbl_LOANS_COL5+" String,"+tbl_LOANS_COL6+" String,"+tbl_LOANS_COL7+" String,"+ tbl_LOANS_STATE +" String,"+ tbl_LOANS_DUEDATE +" text,"+tbl_LOANS_COL10+" String"+")");
         db.execSQL("CREATE TABLE "+tbl_CLIENTS+" ("+tbl_CLIENTS_ID+" integer primary key autoincrement,"+
                 tbl_CLIENTS_USERNAME+" String,"+tbl_CLIENTS_PASSWOD+" String,"+tbl_CLIENTS_FULLNAME+" String,"+tbl_CLIENTS_BIRTHDATE+" String,"+tbl_CLIENTS_CONNO+" String,"+tbl_CLIENTS_EMAIL+" String,"+tbl_CLIENTS_ADDRESS+" String"+")");
         db.execSQL("CREATE TABLE "+tbl_soa+" ("+tbl_soa_id+" integer primary key autoincrement,"+
@@ -74,11 +74,17 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.execSQL("DROP TABLE IF EXISTS "+tbl_soa);
         onCreate(db);
     }
+    /*public int pastdue(){
 
+    }*/
     public String log_in(String username,String password, SQLiteDatabase db){/////working with it
-        //Cursor cur = db.rawQuery("Select * from "+ tbl_CLIENTS + " WHERE " + tbl_CLIENTS_USERNAME + "="+username+" AND " + tbl_CLIENTS_PASSWOD + "="+password+"", null);
+        Cursor cur = db.rawQuery("Select * from "+ tbl_CLIENTS + " WHERE " + tbl_CLIENTS_USERNAME + " = '"+username+"' AND " + tbl_CLIENTS_PASSWOD + " = '"+password+"'", null);
+        if(cur.moveToFirst())
+        {
+            return cur.getString(0);
+        }
+        return "";
 
-        return "1"/*cur.getString(0)*/;
     }
 
     public void insertDataInloan(String cliid,String loan_am,String term,String curbal,String interest,String appl_date,String state,String due_date,String days,SQLiteDatabase db)
@@ -90,8 +96,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
         val.put(tbl_LOANS_COL5,curbal);
         val.put(tbl_LOANS_COL6,interest);
         val.put(tbl_LOANS_COL7,appl_date);
-        val.put(tbl_LOANS_COL8,state);
-        val.put(tbl_LOANS_COL9,due_date);
+        val.put(tbl_LOANS_STATE,state);
+        val.put(tbl_LOANS_DUEDATE,due_date);
         val.put(tbl_LOANS_COL10,days);
 
         db.insert(tbl_LOANS,null,val);
@@ -107,7 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         val.put(tbl_CLIENTS_EMAIL,email);
         val.put(tbl_CLIENTS_ADDRESS,"unveri");
 
-        db.insert(tbl_LOANS,null,val);
+        db.insert(tbl_CLIENTS,null,val);
     }
 
     public void update(String key,String data,SQLiteDatabase db)
@@ -119,12 +125,15 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public void updatestate(String id,String data,SQLiteDatabase db)
     {
         ContentValues val = new ContentValues();
-        val.put(tbl_LOANS_COL8,data);
+        val.put(tbl_LOANS_STATE,data);
         db.update(tbl_LOANS,val,tbl_LOANS_COL1+"=?",new String[]{id});
     }
     public Cursor retrieve(SQLiteDatabase db)
     {
-        Cursor cur = db.rawQuery("select * from "+tbl_LOANS,null);
+        Cursor cur = db.rawQuery("select * from "+tbl_LOANS+" where "+tbl_LOANS_COL2+" = "+store_class.uid,null);
+        if(cur.moveToFirst()){
+            store_class.lid = cur.getString(1);
+        }
         return cur;
     }
 
