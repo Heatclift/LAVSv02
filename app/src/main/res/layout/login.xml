@@ -44,6 +44,17 @@
             android:text="Log-in" />
 
         <TextView
+            android:id="@+id/txtreg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btnlogin"
+            android:layout_alignBottom="@+id/btnlogin"
+            android:layout_alignEnd="@+id/edtpass"
+            android:layout_marginEnd="11dp"
+            android:text="or Register"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,6 +73,7 @@
             android:layout_toEndOf="@+id/textView2"
             android:ems="10"
             android:inputType="textPassword" />
+
     </RelativeLayout>
 
     <TextView
@@ -91,4 +103,5 @@
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/textView3"
         android:text="BitData © 2018" />
+
 </RelativeLayout>

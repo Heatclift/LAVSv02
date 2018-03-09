@@ -20,7 +20,7 @@ import java.util.List;
  * Created by Heatclift on 28/02/2018.
  */
 
-public class frag1 extends Fragment
+public class custom_list extends Fragment
 {
     View view;
     @Nullable

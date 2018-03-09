@@ -55,7 +55,6 @@ public class apploan extends Fragment{
         final String[] loan_amm = new String[1];
         final String[] term = {"1"};
         Date c = Calendar.getInstance().getTime();
-
         SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
         final String date = df.format(c);
         final String[] datenaow = {date};

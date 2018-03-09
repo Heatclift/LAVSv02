@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/txtid"
+        android:id="@+id/txtdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -15,11 +15,29 @@
         android:layout_marginBottom="15dp"/>
 
     <TextView
-        android:id="@+id/txtdata"
+        android:id="@+id/txtam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="40dp"
-        android:layout_toEndOf="@+id/txtid"
+        android:layout_alignBaseline="@+id/txtdate"
+        android:layout_alignBottom="@+id/txtdate"
+        android:layout_marginEnd="56dp"
+        android:layout_toStartOf="@+id/txtstate"
         android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txtstate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="38dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtam"
+        android:layout_toStartOf="@+id/txtam"
+        android:text="Php" />
 </RelativeLayout>

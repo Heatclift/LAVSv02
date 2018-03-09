@@ -46,11 +46,13 @@ public class mycustomadapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         view = inflate.inflate(R.layout.custom_list,null);
-        TextView myid = (TextView)view.findViewById(R.id.txtid);
-        TextView mydata = (TextView)view.findViewById(R.id.txtdata); // dri nimo iformat imong data sa listview
+        TextView myid = (TextView)view.findViewById(R.id.txtdate);
+        TextView mydata = (TextView)view.findViewById(R.id.txtam); // dri nimo iformat imong data sa listview
+        TextView state = (TextView)view.findViewById(R.id.txtstate);
         String row[] = data.get(position);
         myid.setText(row[0]);
         mydata.setText(row[1]);
+        state.setText(row[2]);
         return view;
     }
 }

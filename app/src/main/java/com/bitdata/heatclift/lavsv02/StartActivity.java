@@ -25,7 +25,7 @@ public class StartActivity extends AppCompatActivity {
         final TextView txtuser = (TextView)findViewById(R.id.edruser);
         final TextView txtpass =(TextView)findViewById(R.id.edtpass);
         store_class.uid = "1";
-
+        TextView txtreg = (TextView)findViewById(R.id.txtreg);
         Button btnlogin=(Button)findViewById(R.id.btnlogin);
         final TextView copywrite = (TextView)findViewById(R.id.txtcopywrite);
         final RelativeLayout rl = (RelativeLayout)findViewById(R.id.rlcontrols);
@@ -33,7 +33,14 @@ public class StartActivity extends AppCompatActivity {
 
         final Animation slideside = AnimationUtils.loadAnimation(this,R.anim.slideinside);
         rl.startAnimation(slide);
-        helper.insertDataInclients("12345","12345","Herbert Calmerin","08/24/1999","09099421122","hcalmerin@gmail.com",db);
+
+        txtreg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(StartActivity.this, Register.class);
+                startActivity(i);
+            }
+        });
 
         slide.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -59,16 +66,19 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 store_class.uid = helper.log_in(txtuser.getText().toString(),txtpass.getText().toString(),db);
                 if (store_class.uid != ""){
+                    Log.i("user",store_class.uid);
                     Cursor cur = helper.retrieve(db);
                     if (cur.moveToFirst()){
-                        store_class.lid= cur.getString(0);
+                        store_class.lid = cur.getString(0);
+
                     }
 
                     Intent i = new Intent(StartActivity.this, DashBoardActivity.class);
                     startActivity(i);
+                    finish();
                 }
                 else {
-
+                    Toast.makeText(StartActivity.this,"Invalid Username or password",Toast.LENGTH_LONG).show();
                 }
 
             }
