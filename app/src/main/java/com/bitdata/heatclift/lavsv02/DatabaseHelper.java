@@ -58,10 +58,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public static final  String tbl_soa_state = "STATE";
 
     //end soa
-
     public DatabaseHelper(Context context) {
         super(context, dbname, null, version);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
